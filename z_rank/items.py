@@ -11,7 +11,6 @@ import scrapy
 class ZRankItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-<<<<<<< HEAD
     title = scrapy.Field()
     price = scrapy.Field()
     mall = scrapy.Field()
@@ -20,6 +19,3 @@ class ZRankItem(scrapy.Item):
     comments_count = scrapy.Field()
     vote_percent = scrapy.Field()
     url = scrapy.Field()
-=======
-    pass
->>>>>>> 3221a3ff8cc7dcf59e1cc2cead164c73c331e181
