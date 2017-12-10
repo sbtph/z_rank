@@ -64,17 +64,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-<<<<<<< HEAD
 ITEM_PIPELINES = {
     'z_rank.pipelines.DuplicatesPipeline': 1,
     'z_rank.pipelines.ZRankPipeline': 2,
 }
-=======
-#ITEM_PIPELINES = {
-#    'z_rank.pipelines.ZRankPipeline': 300,
-#}
->>>>>>> 3221a3ff8cc7dcf59e1cc2cead164c73c331e181
-
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
