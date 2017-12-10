@@ -5,17 +5,24 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy import Item as I
+from scrapy import Field as F
 
 
-class ZRankItem(scrapy.Item):
+class ZRankItem(I):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    title = scrapy.Field()
-    price = scrapy.Field()
-    mall = scrapy.Field()
-    posted_at = scrapy.Field()
-    fav_count = scrapy.Field()
-    comments_count = scrapy.Field()
-    vote_percent = scrapy.Field()
-    url = scrapy.Field()
+    title = F()
+    price = F()
+    mall = F()
+    posted_at = F()
+    fav_count = F()
+    comments_count = F()
+    vote_percent = F()
+    url = F()
+
+class UpdateItem(I):
+    fav_count =  F()
+    vote_percent = F()
+    comments_count = F()
+    url = F()
