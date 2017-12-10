@@ -4,7 +4,6 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-<<<<<<< HEAD
 from scrapy.exceptions import DropItem
 import psycopg2
 import psycopg2.extras
@@ -46,10 +45,4 @@ class ZRankPipeline(object):
         else:
             self.conn.commit()
 
-=======
-
-
-class ZRankPipeline(object):
-    def process_item(self, item, spider):
->>>>>>> 3221a3ff8cc7dcf59e1cc2cead164c73c331e181
         return item
