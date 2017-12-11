@@ -16,7 +16,7 @@ def spider2():
 
 def clear():
     while True:
-        set_outdated_data(1)
+        set_outdated_data(1)  # 过期天数
         time.sleep(12*60*60) # 12 hours
 
 threads = []
