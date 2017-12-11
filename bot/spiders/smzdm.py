@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from z_rank.items import ZRankItem
+from bot.items import ZRankItem
 import datetime
 
 class SmzdmSpider(scrapy.Spider):

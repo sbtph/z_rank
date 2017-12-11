@@ -1,3 +1,2 @@
-/z_rank/__pycache__/
-/z_rank/spiders/__pycache__/
-/z_rank/.idea/
+.idea/
+__pycache__/

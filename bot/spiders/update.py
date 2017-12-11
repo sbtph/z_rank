@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from z_rank.items import UpdateItem
+from bot.items import UpdateItem
 import psycopg2
 import psycopg2.extras
 
