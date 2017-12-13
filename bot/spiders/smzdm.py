@@ -46,6 +46,6 @@ class SmzdmSpider(scrapy.Spider):
 
         if self.parseflag == False:
             self.parseflag = True
-            for i in range(2,3):
+            for i in range(2,10):
                 page = 'https://www.smzdm.com/jingxuan/p' + str(i)
                 yield scrapy.Request(page, callback=self.parse)

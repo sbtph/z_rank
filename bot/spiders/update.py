@@ -9,8 +9,8 @@ class UpdateSpider(scrapy.Spider):
     allowed_domains = ['www.smzdm.com']
     start_urls = []
 
-    conn = psycopg2.connect(database="smzdm", user="postgres", \
-                            password="syiloveu559", host="localhost", port="5432")
+    conn = psycopg2.connect(database="zrank", user="ban11111", \
+                            password="syiloveu559")
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("select url from zrank where outdated = FALSE;")
     old_data = [j for i in cur.fetchall() for j in i] # 将 二维数组 转化为 一维数组 ！
@@ -20,8 +20,8 @@ class UpdateSpider(scrapy.Spider):
 
     def parse(self, response):
         try:
-            self.conn = psycopg2.connect(database="smzdm", user="postgres", \
-                                         password="syiloveu559", host="localhost", port="5432")
+            self.conn = psycopg2.connect(database="zrank", user="ban11111", \
+                                         password="syiloveu559")
             self.cur = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         except Exception as e:
             print('Connect to db failed!')

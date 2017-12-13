@@ -54,7 +54,7 @@ ROOT_URLCONF = 'z_rank.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR+"/web/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,6 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',  # 模板中 获取当前网址，当前用户等
             ],
         },
     },
@@ -74,9 +75,13 @@ WSGI_APPLICATION = 'z_rank.wsgi.application'
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default':{
+    'ENGINE':'django.db.backends.postgresql_psycopg2',
+    'NAME':'zrank',#数据库名字
+    'USER':'ban11111',#登录用户名
+    'PASSWORD':'syiloveu559',
+    'HOST':'127.0.0.1',#数据库IP地址
+    'PORT':'5432',
     }
 }
 

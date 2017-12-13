@@ -29,8 +29,8 @@ class ZRankPipeline(object):
     def open_spider(self, spider):
 
         try:
-            self.conn = psycopg2.connect(database="smzdm", user="postgres", \
-                                         password="syiloveu559", host="localhost", port="5432")
+            self.conn = psycopg2.connect(database="zrank", user="ban11111", \
+                                         password="syiloveu559")#, host="localhost", port="5432")
             self.cur = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         except Exception as e:
             print('Connect to db failed!')
