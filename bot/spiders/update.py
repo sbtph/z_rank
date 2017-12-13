@@ -12,7 +12,7 @@ class UpdateSpider(scrapy.Spider):
     conn = psycopg2.connect(database="zrank", user="ban11111", \
                             password="syiloveu559")
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur.execute("select url from zrank where outdated = FALSE;")
+    cur.execute("select url from spider where outdated = FALSE;")
     old_data = [j for i in cur.fetchall() for j in i] # 将 二维数组 转化为 一维数组 ！
     start_urls = old_data
     cur.close()
@@ -34,7 +34,7 @@ class UpdateSpider(scrapy.Spider):
         item['comments_count'] = int(response.css('.commentNum::text').extract_first())
         item['url'] = response.url
         try:
-            self.cur.execute("update zrank set fav_count = %(fav_count)s,\
+            self.cur.execute("update spider set fav_count = %(fav_count)s,\
                         comments_count = %(comments_count)s, vote_percent = %(vote_percent)s \
                         where url = %(url)s ;", item)
         except Exception as e:

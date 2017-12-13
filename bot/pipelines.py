@@ -43,7 +43,7 @@ class ZRankPipeline(object):
     def process_item(self, item, spider):
         if spider.name == "smzdm":
             try:
-                self.cur.execute("insert into zrank(title,price,mall,fav_count,comments_count,posted_at,vote_percent,url,outdated) \
+                self.cur.execute("insert into spider(title,price,mall,fav_count,comments_count,posted_at,vote_percent,url,outdated) \
                 values (%(title)s,%(price)s,%(mall)s,%(fav_count)s,%(comments_count)s,\
                 %(posted_at)s,%(vote_percent)s,%(url)s, FALSE) ON CONFLICT(url) do update set fav_count=EXCLUDED.fav_count,\
                 comments_count=EXCLUDED.comments_count,vote_percent=EXCLUDED.vote_percent;", item)

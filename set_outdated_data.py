@@ -18,17 +18,17 @@ class set_outdated_data(object):
             print (e)
 
     def process(self):
-        self.cur.execute("select posted_at from zrank;")
+        self.cur.execute("select posted_at from spider;")
         date_list = [j for i in self.cur.fetchall() for j in i]
         print (date_list)
         for date in date_list:
             self.datestring = datetime.datetime.strftime(date,'%Y-%m-%d %H:%M')
             print (self.datestring)
             if (self.now - date).days > self.day - 1:
-                self.cur.execute("update zrank set outdated = TRUE where posted_at = %s",str(self.datestring))
+                self.cur.execute("update spider set outdated = TRUE where posted_at = %s",str(self.datestring))
                 self.conn.commit()
             else:
-                self.cur.execute("update zrank set outdated = FALSE where posted_at = %s",[self.datestring,])
+                self.cur.execute("update spider set outdated = FALSE where posted_at = %s",[self.datestring,])
                 self.conn.commit()
         self.cur.close()
         self.conn.close()
