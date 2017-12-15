@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import os
+import platform
+#from web.models import Spider
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'web',
+    #'Spider',
 ]
 
 MIDDLEWARE = [
@@ -59,10 +63,9 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', # 模板中 获取当前网址，当前用户等
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request',  # 模板中 获取当前网址，当前用户等
             ],
         },
     },
@@ -74,16 +77,28 @@ WSGI_APPLICATION = 'z_rank.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {
-    'default':{
-    'ENGINE':'django.db.backends.postgresql_psycopg2',
-    'NAME':'zrank',#数据库名字
-    'USER':'ban11111',#登录用户名
-    'PASSWORD':'syiloveu559',
-    'HOST':'127.0.0.1',#数据库IP地址
-    'PORT':'5432',
+if 'Windows' in platform.platform():
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'zrank',  # 数据库名字
+            'USER': 'postgres',  # 登录用户名
+            'PASSWORD': 'syiloveu559',
+            'HOST': '127.0.0.1',  # 数据库IP地址
+            'PORT': '5432',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'zrank',  # 数据库名字
+            'USER': 'ban11111',  # 登录用户名
+            'PASSWORD': 'syiloveu559',
+            #'HOST': '127.0.0.1',  # 数据库IP地址
+            #'PORT': '5432',
+        }
+    }
 
 
 # Password validation
@@ -122,4 +137,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+

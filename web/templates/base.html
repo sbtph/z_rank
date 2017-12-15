@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta charet="utf-8">
-<title>精选好物！</title>
+<meta charset="UTF-8">
+    {% block loading_static %}{% endblock %}
+<title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     <h1>精选好物！</h1>
-    <p>Django 测试。</p>
-    <li>{{c1}}</li>
-    {% block mainbody %}
-    <p>original</p>
-    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+    <hr>
+    <p>Thanks for visiting my site.</p>
+    {% endblock%}
 </body>
-</html>

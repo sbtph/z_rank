@@ -18,8 +18,10 @@ class ZRankItem(I):
     posted_at = F()
     fav_count = F()
     comments_count = F()
+    zhi_count = F()
     vote_percent = F()
     url = F()
+    img = F()
 
 class UpdateItem(I):
     fav_count =  F()

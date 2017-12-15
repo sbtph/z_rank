@@ -32,11 +32,13 @@ class SmzdmSpider(scrapy.Spider):
             item['price'] = box.css('.z-highlight::text').extract_first()
             zhi = int(box.css('.z-icon-zhi + span::text').extract_first())
             buzhi = int(box.css('.z-icon-buzhi + span::text').extract_first())
+            item['zhi_count'] = zhi
             item['vote_percent'] = int(zhi/(zhi+buzhi)*100) if zhi+buzhi != 0 else -1
             item['fav_count'] = int(box.css('.z-icon-star-empty + span::text').extract_first())
             item['comments_count'] = int(box.css('.z-group-data::text').extract()[3])
             item['mall'] = box.css('.feed-block-extras a::text').extract_first().strip()
             item['url'] = box.css('.feed-block-title a::attr(href)').extract_first()
+            item['img'] = "https://images.weserv.nl/?url=" + box.css('img::attr(src)').extract_first().replace("https://","")
 
             #items.append(item)
             yield item
@@ -46,6 +48,6 @@ class SmzdmSpider(scrapy.Spider):
 
         if self.parseflag == False:
             self.parseflag = True
-            for i in range(2,10):
+            for i in range(2,6):
                 page = 'https://www.smzdm.com/jingxuan/p' + str(i)
                 yield scrapy.Request(page, callback=self.parse)

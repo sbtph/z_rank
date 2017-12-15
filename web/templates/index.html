@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block loading_static %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css" />
+{% endblock %}
+
+    {% block content %}
+        <a href="/ban">ban?!</a>
+        <p>Django 测试。</p>
+        <div><img alt="hehe" src="https://images.weserv.nl/?url=qny.smzdm.com/201712/07/5a2906f9bf08f9364.png_d200.jpg"/></div>
+        <li>{{c1}}</li>
+            {% for e in c2 %}
+            <li>
+                <div class="frame">{{e}}</div>{% if not forloop.last %}<br/>{% endif %}
+            </li>
+            {% endfor %}
+    {% endblock %}
