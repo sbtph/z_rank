@@ -24,7 +24,9 @@ class ZRankItem(I):
     img = F()
 
 class UpdateItem(I):
+    zhi_count = F()
     fav_count =  F()
     vote_percent = F()
     comments_count = F()
+    classification = F()
     url = F()

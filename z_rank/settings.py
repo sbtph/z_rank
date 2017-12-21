@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
-    #'Spider',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +138,6 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+# 内存临时数据列表
+
+Static_List = []

@@ -7,12 +7,13 @@ class SmzdmSpider(scrapy.Spider):
     name = 'smzdm'
     allowed_domains = ['www.smzdm.com']
     start_urls = ['https://www.smzdm.com/jingxuan/']
+    for i in range(2, 6):
+        start_urls.append('https://www.smzdm.com/jingxuan/p' + str(i))
 
-    def __init__(self):
+    #def __init__(self):
         #self.dateflag = False
-        self.parseflag = False
-
-    def parse(self, response):
+        #self.parseflag = False
+    def parse(self,response):
         #items = []
         list = response.css('#feed-main-list .feed-row-wide')
         item = ZRankItem()
@@ -39,15 +40,24 @@ class SmzdmSpider(scrapy.Spider):
             item['mall'] = box.css('.feed-block-extras a::text').extract_first().strip()
             item['url'] = box.css('.feed-block-title a::attr(href)').extract_first()
             item['img'] = "https://images.weserv.nl/?url=" + box.css('img::attr(src)').extract_first().replace("https://","")
-
-            #items.append(item)
+            #yield scrapy.Request(item['url'], meta={'key': item}, callback=self.parse_class)
             yield item
+
         #print (item)
         #print('------------------------------------------------------')
         #print(response.url)
 
-        if self.parseflag == False:
-            self.parseflag = True
-            for i in range(2,6):
+    def parse_class(self, response):
+        item = response.meta['key']
+        item['classification'] = response.xpath("//div[@class='crumbs']/div[position()=2]/a/span/text()").extract_first()
+        #print ('--------------------------------------',item['classification'])
+        yield item
+
+
+
+
+    '''if self.parseflag == False:
+            self.parseflag = True      # 利用flag设置循环仅运行一次。
+            for i in range(2,6):       # 然而可以直接把网址写在 start_urls 里。
                 page = 'https://www.smzdm.com/jingxuan/p' + str(i)
-                yield scrapy.Request(page, callback=self.parse)
+                yield scrapy.Request(page, callback=self.parse)'''

@@ -1,16 +1,4 @@
-{% extends "base.html" %}
-{% load static %}
-{% csrf_token %}
-{% block loading_static %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="{% static 'js/index.js' %}"></script>
-{% endblock %}
-
-    {% block content %}
-    {% include "nav.html" %}
-        <p id="test" type="display:None"></p>
-        <div id="list-container">
+<div id="list-container">
             {% for item in list %}
             <div>
                 <div class="frame">
@@ -31,5 +19,4 @@
             </div>
             {% endfor %}
         </div>
-        <div class="more" value="1"></div>
-    {% endblock %}
+<div class="more" value={{scroll_times}}></div>

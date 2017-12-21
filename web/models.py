@@ -12,6 +12,7 @@ class Spider(models.Model):
     title = models.TextField()
     price = models.TextField()
     mall = models.TextField()
+    classification = models.TextField()
     posted_at = models.DateTimeField()
     fav_count = models.IntegerField()
     comments_count = models.IntegerField()

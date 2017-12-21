@@ -4,7 +4,7 @@ import datetime
 import psycopg2.extras
 from bot.connectdb import connectdb
 
-class set_outdated_data(object):
+class Set_outdated_data(object):
 
     def __init__(self, day):
         self.now = datetime.datetime.now()

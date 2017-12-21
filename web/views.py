@@ -1,15 +1,65 @@
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import render, HttpResponse
 from . import dbprocess as DB
+from django.conf import settings
 
 # Create your views here.
 def index(request):
+    page = 18 # 每页显示的数量
     context = {}
-    context['c1'] = 'Hello World!'
-    all_data = DB.db_all_order_by('vote_percent')
-    context['c2'] = all_data
-    return render(request, 'index.html', context)
+    key_value = []
+    a = 1
+    for i in DB.db_class():
+        key_value.append(['cf-' + str(a),i['classification']])
+        a += 1
+    context['classification'] = key_value
 
+    if request.method == 'POST':
+        post = request.POST
+        if 'txt' in post.keys():
+
+            if post['txt'] == '全部':
+                list = DB.db_all_order_by('vote_percent', 'zhi_count')
+                settings.Static_List = list
+                context['list'] = list[0:page]
+                context['scroll_times'] = '1'
+                return render(request, 'list_container.html', context)
+
+            elif post['txt'] == 'bottom':
+                scroll = int(post['scroll'])
+                list = settings.Static_List[scroll*page:scroll*page+page]
+                context['list'] = list
+                context['scroll_times'] = str(scroll+1)
+                print(context['scroll_times'])
+                return render(request, 'list_container.html', context)
+        else:
+            ctxt = []
+            for i in range(0, len(post)):
+                if 'ctxt['+str(i)+']' in post.keys():
+                    ctxt.append(post['ctxt['+str(i)+']'])
+                else:
+                    break
+            if ctxt:
+                list = DB.db_all_order_by('vote_percent','zhi_count',fav=0,com=0,zhi=0,percent=0,scroll='n',ctxt=ctxt)
+                settings.Static_List = list
+            else:
+                list = DB.db_all_order_by('vote_percent', 'zhi_count')
+                settings.Static_List = list
+
+            context['list'] = list[0:page]
+            context['scroll_times'] = '1'
+            return render(request, 'list_container.html', context)
+
+    elif request.method == 'GET':
+        list = DB.db_all_order_by('vote_percent', 'zhi_count')
+        settings.Static_List = list
+        context['list'] = list[0:page]
+        return render(request, 'index.html', context)
+
+    else:
+        return HttpResponse("服务器错误！程序猿拼命修复中，请稍后尝试访问，谢谢~~~~")
+
+def bs(request):
+    return render(request,'index_bootstrap.html')
 
 def user(request):
     context = {}

@@ -54,7 +54,8 @@ class ZRankPipeline(object):
                 self.id = {'id':self.integer_of_id}
                 self.dictMerge = dict(self.id, **item)
                 print (self.dictMerge)
-                self.cur.execute("insert into spider(id,title,price,mall,fav_count,comments_count,posted_at,zhi_count,vote_percent,url,img,outdated) \
+                self.cur.execute("insert into spider(id,title,price,mall,fav_count,\
+                comments_count,posted_at,zhi_count,vote_percent,url,img,outdated) \
                 values (%(id)s,%(title)s,%(price)s,%(mall)s,%(fav_count)s,%(comments_count)s,\
                 %(posted_at)s,%(zhi_count)s,%(vote_percent)s,%(url)s,%(img)s, FALSE) ON CONFLICT(url) do update set fav_count=EXCLUDED.fav_count,\
                 comments_count=EXCLUDED.comments_count,zhi_count=EXCLUDED.zhi_count,vote_percent=EXCLUDED.vote_percent;", self.dictMerge)
