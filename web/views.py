@@ -4,7 +4,7 @@ from django.conf import settings
 
 # Create your views here.
 def index(request):
-    page = 18 # 每页显示的数量
+    page = 24 # 每页显示的数量
     context = {}
     key_value = []
     a = 1
