@@ -1,0 +1,4 @@
+django-environ==0.4.4
+Django==2.0rc1
+psycopg2==2.7.3.2
+uWSGI==2.0.15

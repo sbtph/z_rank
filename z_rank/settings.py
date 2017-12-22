@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 import os
 import platform
+import environ
+
+env = environ.Env(DEBUG=(bool, False),)
+environ.Env.read_env('.env')
+
 #from web.models import Spider
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,9 +30,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'zt!^p$sgd#2u@c%qt7!y$$!d3jr9lvhd6t6uzz1*3%j0y&8l-%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'aliyun', '120.79.59.48', 'zrank']
 
 
 # Application definition
@@ -75,7 +80,6 @@ WSGI_APPLICATION = 'z_rank.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
 if 'Windows' in platform.platform():
     DATABASES = {
         'default': {
@@ -89,16 +93,8 @@ if 'Windows' in platform.platform():
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'zrank',  # 数据库名字
-            'USER': 'ban11111',  # 登录用户名
-            'PASSWORD': 'syiloveu559',
-            #'HOST': '127.0.0.1',  # 数据库IP地址
-            #'PORT': '5432',
-        }
+        'default': dict(env.db(), ** {'PASSWORD': env('POSTGRES_PASSWORD') })
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
