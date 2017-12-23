@@ -27,7 +27,7 @@ SECRET_KEY = 'zt!^p$sgd#2u@c%qt7!y$$!d3jr9lvhd6t6uzz1*3%j0y&8l-%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['120.79.59.48', '192.168.2.177', '113.110.143.157', 'localhost', '192.168.1.3', '100.64.153.70']
+ALLOWED_HOSTS = ['120.79.59.48', '192.168.2.177', '113.110.143.157', '127.0.0.1', '192.168.1.3', '100.64.153.70']
 
 
 # Application definition
@@ -94,8 +94,8 @@ else:
             'NAME': 'zrank',  # 数据库名字
             'USER': 'ban11111',  # 登录用户名
             'PASSWORD': 'syiloveu559',
-            #'HOST': '127.0.0.1',  # 数据库IP地址
-            #'PORT': '5432',
+            'HOST': '127.0.0.1',  # 数据库IP地址
+            'PORT': '5432',
         }
     }
 
@@ -148,3 +148,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 # 内存临时数据列表
 
 Static_List = []
+
