@@ -8,4 +8,4 @@ def connectdb():
                          password="syiloveu559", host="localhost", port="5432")
     else:
         return psycopg2.connect(database="zrank", user="ban11111", \
-                         password="syiloveu559")
+                         password="syiloveu559", host="localhost", port="5432")
