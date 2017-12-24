@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'zt!^p$sgd#2u@c%qt7!y$$!d3jr9lvhd6t6uzz1*3%j0y&8l-%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True 移到下面的判断里面了
 
 ALLOWED_HOSTS = ['120.79.59.48', '192.168.2.177', '113.110.143.157', '127.0.0.1', '192.168.1.3', '100.64.153.70']
 
@@ -77,6 +77,7 @@ WSGI_APPLICATION = 'z_rank.wsgi.application'
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 if 'Windows' in platform.platform():
+    DEBUG = True
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -88,6 +89,7 @@ if 'Windows' in platform.platform():
         }
     }
 else:
+    DEBUG = False
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
