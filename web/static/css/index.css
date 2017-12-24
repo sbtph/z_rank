@@ -17,6 +17,8 @@ body {
     border-width: medium;
 }
 
+#column{display: flex; flex-direction: column;}
+
 #list-container, .more{
     display: flex;
     flex-wrap: wrap;
@@ -65,3 +67,5 @@ div.inner-right{
     justify-content: space-around;
     align-items: flex-end;
 }
+
+#finish {display: flex; justify-content: center; align-self: flex-start;}

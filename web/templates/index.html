@@ -9,10 +9,9 @@
 
     {% block content %}
     {% include "nav.html" %}
-        <p id="test" type="display:None"></p>
         <div id="list-container">
             {% for item in list %}
-            <div>
+
                 <div class="frame">
                     <div class="inner-left">
                         <img class="img-list" src={{item.img}} alt="pic"></img>
@@ -28,8 +27,9 @@
                         </div>
                     </div>
                 </div>{% if not forloop.last %}<br/>{% endif %}
-            </div>
+
             {% endfor %}
+
+            <div class="more" value="1"></div>
         </div>
-        <div class="more" value="1"></div>
     {% endblock %}

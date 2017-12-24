@@ -1,22 +1,24 @@
-<div id="list-container">
-            {% for item in list %}
-            <div>
-                <div class="frame">
-                    <div class="inner-left">
-                        <img class="img-list" src={{item.img}} alt="pic"></img>
-                    </div>
-                    <div class="inner-right">
-                            <b>{{item.title}}</b>
-                            <a href={{item.url}} target="_blank">{{item.price}}</a>
-                        <div class="counts-div">
-                            <a class="counts">收藏：{{item.fav_count}}</a>
-                            <a class="counts">评论：{{item.comments_count}}</a>
-                            <a class="counts">值：{{item.zhi_count}}</a>
-                            <a class="counts">值率：{{item.vote_percent}}</a>
-                        </div>
-                    </div>
-                </div>{% if not forloop.last %}<br/>{% endif %}
+{% for item in list %}
+        <div class="frame">
+            <div class="inner-left">
+                <img class="img-list" src={{item.img}} alt="pic"></img>
             </div>
-            {% endfor %}
-        </div>
+            <div class="inner-right">
+                <b>{{item.title}}</b>
+                <a href={{item.url}} target="_blank">{{item.price}}</a>
+                <div class="counts-div">
+                    <a class="counts">收藏：{{item.fav_count}}</a>
+                    <a class="counts">评论：{{item.comments_count}}</a>
+                    <a class="counts">值：{{item.zhi_count}}</a>
+                    <a class="counts">值率：{{item.vote_percent}}</a>
+                </div>
+            </div>
+        </div>{% if not forloop.last %}<br/>{% endif %}
+{% endfor %}
+
 <div class="more" value={{scroll_times}}></div>
+
+{% if finish == True %}
+    <div class="w-100"></div>
+    <div class="alert alert-info text-center" id="finish">没有更多东西了噢…</div>
+{% endif %}
