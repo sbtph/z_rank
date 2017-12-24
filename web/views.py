@@ -30,8 +30,6 @@ def index(request):
                 context['list'] = list
                 context['scroll_times'] = str(scroll+1)
                 context['finish'] = True if scroll*page+page >= len(settings.Static_List) else False
-                if context['finish']==True:
-                    settings.Static_List = ['finish']
                 return render(request, 'list_container.html', context)
         else:
             ctxt = []
