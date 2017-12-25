@@ -147,7 +147,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 
-# 内存临时数据列表
+# 内存数据列表
 
-Static_List = []
+list = []
 

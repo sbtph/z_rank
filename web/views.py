@@ -1,13 +1,12 @@
 from django.shortcuts import render, HttpResponse
 from . import dbprocess as DB
-from django.conf import settings
+from django.conf import settings as S
+
 
 # Create your views here.
 def index(request):
     page = 24 # 每页显示的数量
     context = {}
-    list_bottom = settings.Static_List
-
     key_value = []
     a = 1
     for i in DB.db_class():
@@ -20,18 +19,16 @@ def index(request):
         if 'txt' in post.keys():
 
             if post['txt'] == '全部':
-                list_all = DB.db_all_order_by('vote_percent', 'zhi_count')
-                settings.Static_List = list_all
-                context['list'] = list_all[0:page]
+                S.list = DB.db_all_order_by('vote_percent', 'zhi_count')
+                context['list'] = S.list[0:page]
                 context['scroll_times'] = '1'
                 return render(request, 'list_container.html', context)
 
             elif post['txt'] == 'bottom':
                 scroll = int(post['scroll'])
-                #list_bottom = settings.Static_List
-                context['list'] = list_bottom[scroll*page:scroll*page+page]
+                context['list'] = S.list[scroll*page:scroll*page+page]
                 context['scroll_times'] = str(scroll+1)
-                context['finish'] = True if scroll*page+page >= len(settings.Static_List) else False
+                context['finish'] = True if scroll*page+page >= len(S.list) else False
                 return render(request, 'list_container.html', context)
         else:
             ctxt = []
@@ -41,21 +38,18 @@ def index(request):
                 else:
                     break
             if ctxt:
-                list_class = DB.db_all_order_by('vote_percent','zhi_count',fav=0,com=0,zhi=0,percent=0,scroll='n',ctxt=ctxt)
-                settings.Static_List = list_class
-                context['list'] = list_class[0:page]
+                S.list = DB.db_all_order_by('vote_percent','zhi_count',fav=0,com=0,zhi=0,percent=0,scroll='n',ctxt=ctxt)
+                context['list'] = S.list[0:page]
             else:
-                list_all = DB.db_all_order_by('vote_percent', 'zhi_count')
-                settings.Static_List = list_all
-                context['list'] = list_all[0:page]
+                S.list = DB.db_all_order_by('vote_percent', 'zhi_count')
+                context['list'] = S.list[0:page]
 
             context['scroll_times'] = '1'
             return render(request, 'list_container.html', context)
 
     elif request.method == 'GET':
-        list_all = DB.db_all_order_by('vote_percent', 'zhi_count')
-        settings.Static_List = list_all
-        context['list'] = list_all[0:page]
+        S.list = DB.db_all_order_by('vote_percent', 'zhi_count')
+        context['list'] = S.list[0:page]
         return render(request, 'index.html', context)
 
     else:
