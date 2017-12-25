@@ -32,4 +32,4 @@ def wechat(request):
         response = HttpResponse(reply.render(), content_type="application/xml")
         return response
     else:
-        pass
+        return HttpResponse("what?")
