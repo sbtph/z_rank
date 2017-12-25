@@ -26,8 +26,8 @@ def index(request):
 
             elif post['txt'] == 'bottom':
                 scroll = int(post['scroll'])
-                list_bottom = settings.Static_List[scroll*page:scroll*page+page]
-                context['list'] = list_bottom
+                list_bottom = settings.Static_List
+                context['list'] = list_bottom[scroll*page:scroll*page+page]
                 context['scroll_times'] = str(scroll+1)
                 context['finish'] = True if scroll*page+page >= len(settings.Static_List) else False
                 return render(request, 'list_container.html', context)
