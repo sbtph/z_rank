@@ -58,9 +58,6 @@ def index(request):
     else:
         return HttpResponse("服务器错误！程序猿拼命修复中，请稍后尝试访问，谢谢~~~~")
 
-def bs(request):
-    return render(request,'index_bootstrap.html')
-
 def user(request):
     context = {}
     test = DB.db_all_order_by('zhi_count')

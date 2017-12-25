@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from web import views
+from web import views, wechat
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('bs/', views.bs, name='index_bootstrap'),
+    path('weix/', wechat.weix, name='weixin'),
     path('user/ban', views.user, name='user'),
 ]
 
