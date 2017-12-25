@@ -6,6 +6,8 @@ from django.conf import settings
 def index(request):
     page = 24 # 每页显示的数量
     context = {}
+    list_bottom = settings.Static_List
+
     key_value = []
     a = 1
     for i in DB.db_class():
@@ -26,7 +28,7 @@ def index(request):
 
             elif post['txt'] == 'bottom':
                 scroll = int(post['scroll'])
-                list_bottom = settings.Static_List
+                #list_bottom = settings.Static_List
                 context['list'] = list_bottom[scroll*page:scroll*page+page]
                 context['scroll_times'] = str(scroll+1)
                 context['finish'] = True if scroll*page+page >= len(settings.Static_List) else False
