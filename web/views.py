@@ -18,16 +18,16 @@ def index(request):
         if 'txt' in post.keys():
 
             if post['txt'] == '全部':
-                list = DB.db_all_order_by('vote_percent', 'zhi_count')
-                settings.Static_List = list
-                context['list'] = list[0:page]
+                list_all = DB.db_all_order_by('vote_percent', 'zhi_count')
+                settings.Static_List = list_all
+                context['list'] = list_all[0:page]
                 context['scroll_times'] = '1'
                 return render(request, 'list_container.html', context)
 
             elif post['txt'] == 'bottom':
                 scroll = int(post['scroll'])
-                list = settings.Static_List[scroll*page:scroll*page+page]
-                context['list'] = list
+                list_bottom = settings.Static_List[scroll*page:scroll*page+page]
+                context['list'] = list_bottom
                 context['scroll_times'] = str(scroll+1)
                 context['finish'] = True if scroll*page+page >= len(settings.Static_List) else False
                 return render(request, 'list_container.html', context)
@@ -39,20 +39,21 @@ def index(request):
                 else:
                     break
             if ctxt:
-                list = DB.db_all_order_by('vote_percent','zhi_count',fav=0,com=0,zhi=0,percent=0,scroll='n',ctxt=ctxt)
-                settings.Static_List = list
+                list_class = DB.db_all_order_by('vote_percent','zhi_count',fav=0,com=0,zhi=0,percent=0,scroll='n',ctxt=ctxt)
+                settings.Static_List = list_class
+                context['list'] = list_class[0:page]
             else:
-                list = DB.db_all_order_by('vote_percent', 'zhi_count')
-                settings.Static_List = list
+                list_all = DB.db_all_order_by('vote_percent', 'zhi_count')
+                settings.Static_List = list_all
+                context['list'] = list_all[0:page]
 
-            context['list'] = list[0:page]
             context['scroll_times'] = '1'
             return render(request, 'list_container.html', context)
 
     elif request.method == 'GET':
-        list = DB.db_all_order_by('vote_percent', 'zhi_count')
-        settings.Static_List = list
-        context['list'] = list[0:page]
+        list_all = DB.db_all_order_by('vote_percent', 'zhi_count')
+        settings.Static_List = list_all
+        context['list'] = list_all[0:page]
         return render(request, 'index.html', context)
 
     else:
