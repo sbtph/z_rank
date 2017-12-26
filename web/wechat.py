@@ -1,3 +1,4 @@
+# coding: utf-8
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from wechatpy import parse_message, create_reply
@@ -23,32 +24,33 @@ def wechat(request):
     if request.method == 'GET':
         response = HttpResponse(echo_str, content_type="text/plain")
         return response
-    elif request.method == 'POST':
-        if encrypt_type == 'raw':
-            msg = parse_message(request.body)
-            response = HttpResponse(msg, content_type="application/xml")
-            return response
-        else:
-            from wechatpy.crypto import WeChatCrypto
+    #elif request.method == 'POST':
+    #POST 请求
+    if encrypt_type == 'raw':
+        msg = parse_message(request.body)
+        response = HttpResponse(msg, content_type="application/xml")
+        return response
+    else:
+        from wechatpy.crypto import WeChatCrypto
 
-            crypto = WeChatCrypto(WECHAT_TOKEN, AES_Key, AppID)
-            try:
-                decrypted_xml = crypto.decrypt_message(
-                    request.body,
-                    msg_signature,
-                    timestamp,
-                    nonce
-                )
-            except (InvalidAppIdException, InvalidSignatureException):
-                # 处理异常或忽略
-                pass
-            msg = parse_message(decrypted_xml)
-            if msg.type == 'text':
-                reply = create_reply('这是条文字消息', msg)
-            else:
-                reply = create_reply('这是其他类型消息', msg)
-            encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
-            return encrypted_xml
+        crypto = WeChatCrypto(WECHAT_TOKEN, AES_Key, AppID)
+        try:
+            decrypted_xml = crypto.decrypt_message(
+                request.body,
+                msg_signature,
+                timestamp,
+                nonce
+            )
+        except (InvalidAppIdException, InvalidSignatureException):
+            # 处理异常或忽略
+            pass
+        msg = parse_message(decrypted_xml)
+        if msg.type == 'text':
+            reply = create_reply('这是条文字消息', msg)
+        else:
+            reply = create_reply('这是其他类型消息', msg)
+        encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
+        return encrypted_xml
 
 
     else:
