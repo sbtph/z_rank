@@ -27,6 +27,7 @@ def wechat(request):
         nonce = request.POST.get('nonce', '')
         encrypt_type = request.POST.get('encrypt_type', '')
         msg_signature = request.POST.get('msg_signature', '')
+        print("----------------------------------------")
         print(encrypt_type, timestamp)
         return HttpResponse("dfssdf")
         '''if encrypt_type == 'raw':
