@@ -23,14 +23,14 @@ def wechat(request):
         response = HttpResponse(echo_str, content_type="text/plain")
         return response
     elif request.method == 'POST':
-        timestamp = request.POST.get('timestamp', '')
-        nonce = request.POST.get('nonce', '')
-        encrypt_type = request.POST.get('encrypt_type', '')
-        msg_signature = request.POST.get('msg_signature', '')
+        timestamp = request.GET.get('timestamp', '')
+        nonce = request.GET.get('nonce', '')
+        encrypt_type = request.GET.get('encrypt_type', '')
+        msg_signature = request.GET.get('msg_signature', '')
         print("----------------------------------------")
         print(list(request.POST.items()))
-        return HttpResponse("dfssdf")
-        '''if encrypt_type == 'raw':
+        return HttpResponse("sdfdsf")
+        if encrypt_type == 'raw':
             msg = parse_message(request.body)
             response = HttpResponse(msg, content_type="application/xml")
             return response
@@ -44,7 +44,7 @@ def wechat(request):
             else:
                 reply = create_reply('这是其他类型消息', msg)
             encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
-            return encrypted_xml'''
+            return encrypted_xml
 
     else:
         return "nothing"
