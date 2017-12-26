@@ -29,7 +29,6 @@ def wechat(request):
         msg_signature = request.GET.get('msg_signature', '')
         print("----------------------------------------")
         print(list(request.GET.items()))
-        return HttpResponse("sdfdsf")
         if encrypt_type == 'raw':
             msg = parse_message(request.body)
             response = HttpResponse(msg, content_type="application/xml")
