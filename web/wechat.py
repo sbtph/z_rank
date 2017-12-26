@@ -28,7 +28,7 @@ def wechat(request):
         encrypt_type = request.POST.get('encrypt_type', '')
         msg_signature = request.POST.get('msg_signature', '')
         print(encrypt_type, timestamp)
-        if encrypt_type == 'raw':
+        '''if encrypt_type == 'raw':
             msg = parse_message(request.body)
             response = HttpResponse(msg, content_type="application/xml")
             return response
@@ -42,7 +42,7 @@ def wechat(request):
             else:
                 reply = create_reply('这是其他类型消息', msg)
             encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
-            return encrypted_xml
+            return encrypted_xml'''
 
     else:
         return "nothing"
