@@ -6,7 +6,7 @@ from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException, InvalidAppIdException
 
 WECHAT_TOKEN = 'zebreayisban11111'
-AES_Key = 'I8xlF0uNubVBfo8vazAQoh8YftYL6CMvvRUxetAa4Ju '
+AES_Key = 'I8xlF0uNubVBfo8vazAQoh8YftYL6CMvvRUxetAa4Ju'
 AppID = 'wx7945b4b4bcb70eae'
 
 @csrf_exempt
