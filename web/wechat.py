@@ -10,12 +10,12 @@ AppID = 'wx7945b4b4bcb70eae'
 
 @csrf_exempt
 def wechat(request):
-    signature = request.args.get('signature', '')
-    timestamp = request.args.get('timestamp', '')
-    nonce = request.args.get('nonce', '')
-    echo_str = request.args.get('echostr', '')
-    encrypt_type = request.args.get('encrypt_type', '')
-    msg_signature = request.args.get('msg_signature', '')
+    signature = request.GET.get('signature', '')
+    timestamp = request.GET.get('timestamp', '')
+    nonce = request.GET.get('nonce', '')
+    echo_str = request.GET.get('echostr', '')
+    encrypt_type = request.GET.get('encrypt_type', '')
+    msg_signature = request.GET.get('msg_signature', '')
     try:
         check_signature(WECHAT_TOKEN, signature, timestamp, nonce)
     except InvalidSignatureException:
