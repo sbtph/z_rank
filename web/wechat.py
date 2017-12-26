@@ -22,28 +22,22 @@ def wechat(request):
             echo_str = 'error'
         response = HttpResponse(echo_str, content_type="text/plain")
         return response
+
     elif request.method == 'POST':
+        from wechatpy.crypto import WeChatCrypto
         timestamp = request.GET.get('timestamp', '')
         nonce = request.GET.get('nonce', '')
-        encrypt_type = request.GET.get('encrypt_type', '')
+        #encrypt_type = request.GET.get('encrypt_type', '')
         msg_signature = request.GET.get('msg_signature', '')
-        print("----------------------------------------")
-        print(list(request.GET.items()))
-        if not encrypt_type:
-            msg = parse_message(request.body)
-            response = HttpResponse(msg, content_type="application/xml")
-            return response
+        crypto = WeChatCrypto(WECHAT_TOKEN, AES_Key, AppID)
+        decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
+        msg = parse_message(decrypted_msg)
+        if msg.type == 'text':
+            reply = create_reply('这是条文字消息', msg)
         else:
-            from wechatpy.crypto import WeChatCrypto
-            crypto = WeChatCrypto(WECHAT_TOKEN, AES_Key, AppID)
-            decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
-            msg = parse_message(decrypted_msg)
-            if msg.type == 'text':
-                reply = create_reply('这是条文字消息', msg)
-            else:
-                reply = create_reply('这是其他类型消息', msg)
-            encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
-            return HttpResponse(encrypted_xml, content_type="application/xml")
+            reply = create_reply('这是其他类型消息', msg)
+        encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
+        return HttpResponse(encrypted_xml, content_type="application/xml")
 
     else:
-        return "nothing"
+        return "nothing不可能运行到这里，哈哈~"
