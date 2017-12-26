@@ -36,8 +36,9 @@ def wechat(request):
             from wechatpy.crypto import WeChatCrypto
 
             crypto = WeChatCrypto(WECHAT_TOKEN, AES_Key, AppID)
+            decrypted_msg = None
             try:
-                decrypted_xml = crypto.decrypt_message(
+                decrypted_msg = crypto.decrypt_message(
                     request.body,
                     msg_signature,
                     timestamp,
@@ -46,7 +47,7 @@ def wechat(request):
             except (InvalidAppIdException, InvalidSignatureException):
                 # 处理异常或忽略
                 pass
-            msg = parse_message(decrypted_xml)
+            msg = parse_message(decrypted_msg)
             if msg.type == 'text':
                 reply = create_reply('这是条文字消息', msg)
             else:
