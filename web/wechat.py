@@ -27,7 +27,7 @@ def wechat(request):
         from wechatpy.crypto import WeChatCrypto
         timestamp = request.GET.get('timestamp', '')
         nonce = request.GET.get('nonce', '')
-        #encrypt_type = request.GET.get('encrypt_type', '')
+        ##encrypt_type = request.GET.get('encrypt_type', '')
         msg_signature = request.GET.get('msg_signature', '')
         crypto = WeChatCrypto(WECHAT_TOKEN, AES_Key, AppID)
         decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
