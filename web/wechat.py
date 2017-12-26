@@ -23,11 +23,11 @@ def wechat(request):
         response = HttpResponse(echo_str, content_type="text/plain")
         return response
     elif request.method == 'POST':
-        timestamp = request.GET.get('timestamp', '')
-        nonce = request.GET.get('nonce', '')
-        encrypt_type = request.GET.get('encrypt_type', '')
-        msg_signature = request.GET.get('msg_signature', '')
-        print(encrypt_type)
+        print(request.POST)
+        timestamp = request.POST.get('timestamp', '')
+        nonce = request.POST.get('nonce', '')
+        encrypt_type = request.POST.get('encrypt_type', '')
+        msg_signature = request.POST.get('msg_signature', '')
         if encrypt_type == 'raw':
             msg = parse_message(request.body)
             response = HttpResponse(msg, content_type="application/xml")
