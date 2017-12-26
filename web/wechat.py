@@ -51,7 +51,3 @@ def wechat(request):
             reply = create_reply('这是其他类型消息', msg)
         encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
         return encrypted_xml
-
-
-    else:
-        return HttpResponse("what?")
