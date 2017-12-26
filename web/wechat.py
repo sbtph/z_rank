@@ -27,6 +27,7 @@ def wechat(request):
         nonce = request.POST.get('nonce', '')
         encrypt_type = request.POST.get('encrypt_type', '')
         msg_signature = request.POST.get('msg_signature', '')
+        print(encrypt_type)
         if encrypt_type == 'raw':
             msg = parse_message(request.body)
             response = HttpResponse(msg, content_type="application/xml")
