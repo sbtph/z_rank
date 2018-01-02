@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from wechatpy import parse_message, create_reply
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException, InvalidAppIdException
+from . import dbprocess as DB
 
 WECHAT_TOKEN = 'zebreayisban11111'
 AES_Key = 'I8xlF0uNubVBfo8vazAQoh8YftYL6CMvvRUxetAa4Ju'
@@ -27,15 +28,19 @@ def wechat(request):
         from wechatpy.crypto import WeChatCrypto
         timestamp = request.GET.get('timestamp', '')
         nonce = request.GET.get('nonce', '')
-        ##encrypt_type = request.GET.get('encrypt_type', '')
+        #encrypt_type = request.GET.get('encrypt_type', '')
         msg_signature = request.GET.get('msg_signature', '')
         crypto = WeChatCrypto(WECHAT_TOKEN, AES_Key, AppID)
         decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
         msg = parse_message(decrypted_msg)
         if msg.type == 'text':
-            reply = create_reply('这是条文字消息', msg)
+            if msg.name == "分类" or "classification":
+                classi = DB.db_class().join(",")
+                reply = create_reply('目前有这些分类哦：'+classi, msg)
+            else:
+                reply = create_reply('回复“分类”可以查看分类哦')
         else:
-            reply = create_reply('这是其他类型消息', msg)
+            reply = create_reply('这是啥，我读书少，看不懂哦……', msg)
         encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
         return HttpResponse(encrypted_xml, content_type="application/xml")
 

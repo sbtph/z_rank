@@ -1,3 +1,4 @@
+{% load static %}
 {% for item in list %}
         <div class="frame">
             <div class="inner-left">
@@ -7,10 +8,22 @@
                 <b>{{item.title}}</b>
                 <a href={{item.url}} target="_blank">{{item.price}}</a>
                 <div class="counts-div">
-                    <a class="counts">收藏：{{item.fav_count}}</a>
-                    <a class="counts">评论：{{item.comments_count}}</a>
-                    <a class="counts">值：{{item.zhi_count}}</a>
-                    <a class="counts">值率：{{item.vote_percent}}</a>
+                    <a class="counts" title="收藏">
+                        <div class="icons"><img class="icons" src="{% static '/open-iconic/svg/star.svg' %}" alt="收藏:"></div>
+                        <span class="counts-content">{{item.fav_count}}</span>
+                    </a>
+                    <a class="counts" title="评论">
+                        <div class="icons"><img class="icons2" src="{% static '/open-iconic/svg/comment-square.svg' %}" alt="评论:">
+                        </div><span class="counts-content">{{item.comments_count}}</span>
+                    </a>
+                    <a class="counts" title="值">
+                        <div class="icons"><img class="icons" src="{% static '/open-iconic/svg/thumb-up.svg' %}" alt="值:"></div>
+                        <span class="counts-content">{{item.zhi_count}}</span>
+                    </a>
+                    <a class="counts" title="值率">
+                        <div class="icons"><img class="icons" src="{% static '/open-iconic/svg/graph.svg' %}" alt="值率:"></div>
+                        <span class="counts-content">{{item.vote_percent}}%</span>
+                    </a>
                 </div>
             </div>
         </div>{% if not forloop.last %}<br/>{% endif %}

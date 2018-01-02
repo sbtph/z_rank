@@ -67,5 +67,14 @@ div.inner-right{
     justify-content: space-around;
     align-items: flex-end;
 }
+.icons2 { width: 10px;}
+.icons { width: 14px; fill: blue;}
+
+.counts {
+    display: flex;
+    align-items: stretch;
+}
+
+
 
 #finish {display: flex; justify-content: center; align-self: flex-start;}
