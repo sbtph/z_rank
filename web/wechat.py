@@ -35,7 +35,7 @@ def wechat(request):
         decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
         msg = parse_message(decrypted_msg)
         if msg.type == 'text':
-            if msg.content == "分类" or "classification" or "Classification":
+            if msg.content == ("分类" or "classification" or "Classification"):
                 clist = []
                 for i in DB.db_class():
                     clist.append(i['classification'])
