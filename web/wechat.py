@@ -5,6 +5,7 @@ from wechatpy import parse_message, create_reply
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException, InvalidAppIdException
 from . import dbprocess as DB
+from .wechat_events import events_reply
 
 WECHAT_TOKEN = 'zebreayisban11111'
 AES_Key = 'I8xlF0uNubVBfo8vazAQoh8YftYL6CMvvRUxetAa4Ju'
@@ -34,11 +35,13 @@ def wechat(request):
         decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
         msg = parse_message(decrypted_msg)
         if msg.type == 'text':
-            if msg.name == "分类" or "classification":
-                classi = DB.db_class().join(",")
+            if msg.content == "分类" or "classification":
+                classi = ",".join(DB.db_class())
                 reply = create_reply('目前有这些分类哦：'+classi, msg)
             else:
-                reply = create_reply('回复“分类”可以查看分类哦')
+                reply = create_reply('回复“分类”可以查看分类哦', msg)
+        elif msg.type == 'event':
+            reply = events_reply(msg)
         else:
             reply = create_reply('这是啥，我读书少，看不懂哦……', msg)
         encrypted_xml = crypto.encrypt_message(reply.render(), nonce, timestamp)
