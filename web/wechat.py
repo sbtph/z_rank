@@ -35,8 +35,11 @@ def wechat(request):
         decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
         msg = parse_message(decrypted_msg)
         if msg.type == 'text':
-            if msg.content == "分类" or msg.content == "classification":
-                classification = "目前有这些分类哦：" + ",".join(DB.db_class())
+            if msg.content == "分类" or "classification" or "Classification":
+                clist = []
+                for i in DB.db_class():
+                    clist.append(i['classification'])
+                classification = "目前有这些分类哦：" + ",".join(clist)
                 reply = create_reply(classification, msg)
             else:
                 reply = create_reply('回复“分类”可以查看分类哦', msg)

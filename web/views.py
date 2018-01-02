@@ -10,7 +10,7 @@ def index(request):
     key_value = []
     a = 1
     for i in DB.db_class():
-        key_value.append(['cf-' + str(a),i['classification']])
+        key_value.append(['cf-' + str(a), i['classification']])
         a += 1
     context['classification'] = key_value
 
