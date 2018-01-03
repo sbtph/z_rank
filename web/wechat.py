@@ -47,7 +47,7 @@ def wechat(request):
                 article = ObjectDict()
                 for i in DB.db_all_order_by('vote_percent', 'zhi_count')[0:8]:
                     article.title = i['title']
-                    article.description = i['price'] + ' ; ' + str(i['percent'])
+                    article.description = i['price'] + ' ; ' + str(i['vote_percent'])
                     article.image = i['img']
                     article.url = i['url']
                     reply.add_article(article)
@@ -56,7 +56,7 @@ def wechat(request):
                 article = ObjectDict()
                 for i in DB.db_all_order_by('vote_percent', 'zhi_count', scroll='n', ctxt=msg.content)[0:8]:
                     article.title = i['title']
-                    article.description = i['price'] + ' ; ' + str(i['percent'])
+                    article.description = i['price'] + ' ; ' + str(i['vote_percent'])
                     article.image = i['img']
                     article.url = i['url']
                     reply.add_article(article)
