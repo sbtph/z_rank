@@ -51,7 +51,7 @@ def wechat(request):
                     article.image = i['img']
                     article.url = i['url']
                     reply.add_article(article)
-            elif msg.content in DB.db_class().value :
+            elif msg.content in DB.db_class().values():
                 reply = ArticlesReply(msg)
                 article = ObjectDict()
                 for i in DB.db_all_order_by('vote_percent', 'zhi_count', scroll='n', ctxt=msg.content)[0:8]:
