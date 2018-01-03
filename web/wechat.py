@@ -44,13 +44,15 @@ def wechat(request):
                 reply = create_reply(classification, msg)
             elif msg.content == "排行":
                 reply = ArticlesReply(message=msg)
-                article = ObjectDict()
+
                 for i in DB.db_all_order_by('vote_percent', 'zhi_count')[0:8]:
+                    article = ObjectDict()
                     article.title = i['title']
                     article.description = i['price'] + ' ; ' + str(i['vote_percent'])+'%'
                     article.image = i['img']
                     article.url = i['url']
                     reply.add_article(article)
+
             elif msg.content in clist:
                 reply = ArticlesReply(message=msg)
                 article = ObjectDict()
