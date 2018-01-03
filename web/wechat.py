@@ -52,9 +52,8 @@ def wechat(request):
                     article.url = i['url']
                     reply.add_article(article)
             elif msg.content in clist:
-                print(msg.content)
                 reply = ArticlesReply(message=msg)
-                for i in DB.db_all_order_by('vote_percent', 'zhi_count',fav=0,com=0,zhi=0,percent=0, scroll='n', ctxt=msg.content)[0:8]:
+                for i in DB.db_all_order_by('vote_percent', 'zhi_count', scroll='n', ctxt=[msg.content])[0:8]:
                     article = ObjectDict()
                     article.title = i['title']
                     article.description = i['price'] + ' ; ' + str(i['vote_percent'])+'%'
