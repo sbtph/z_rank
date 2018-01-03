@@ -36,14 +36,14 @@ def wechat(request):
         decrypted_msg = crypto.decrypt_message(request.body, msg_signature, timestamp, nonce)
         msg = parse_message(decrypted_msg)
         if msg.type == 'text':
+            clist = []
+            for i in DB.db_class():
+                clist.append(i['classification'])
             if msg.content == ("分类" or "classification" or "Classification"):
-                clist = []
-                for i in DB.db_class():
-                    clist.append(i['classification'])
                 classification = "目前有这些分类：" + ",".join(clist)
                 reply = create_reply(classification, msg)
             elif msg.content == "排行":
-                reply = ArticlesReply(msg)
+                reply = ArticlesReply()
                 article = ObjectDict()
                 for i in DB.db_all_order_by('vote_percent', 'zhi_count')[0:8]:
                     article.title = i['title']
@@ -51,8 +51,8 @@ def wechat(request):
                     article.image = i['img']
                     article.url = i['url']
                     reply.add_article(article)
-            elif msg.content in DB.db_class():
-                reply = ArticlesReply(msg)
+            elif msg.content in clist:
+                reply = ArticlesReply()
                 article = ObjectDict()
                 for i in DB.db_all_order_by('vote_percent', 'zhi_count', scroll='n', ctxt=msg.content)[0:8]:
                     article.title = i['title']
