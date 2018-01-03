@@ -52,6 +52,14 @@ def wechat(request):
                     article.url = i['url']
                     reply.add_article(article)
             elif msg.content in DB.db_class().value :
+                reply = ArticlesReply(msg)
+                article = ObjectDict()
+                for i in DB.db_all_order_by('vote_percent', 'zhi_count', scroll='n', ctxt=msg.content)[0:8]:
+                    article.title = i['title']
+                    article.description = i['price'] + ' ; ' + i['percent']
+                    article.image = i['img']
+                    article.url = i['url']
+                    reply.add_article(article)
             else:
                 reply = create_reply('回复“分类”可以查看分类哦', msg)
         elif msg.type == 'event':
