@@ -45,12 +45,12 @@ def wechat(request):
             elif msg.content == "排行":
                 reply = ArticlesReply()
                 article = ObjectDict()
-                for i in DB.db_all_order_by('vote_percent', 'zhi_count')[0:8]:
-                    article.title = i['title']
-                    article.description = i['price'] + ' ; ' + str(i['vote_percent'])
-                    article.image = i['img']
-                    article.url = i['url']
-                    reply.add_article(article)
+                i = DB.db_all_order_by('vote_percent', 'zhi_count')[0]
+                article.title = i['title']
+                article.description = i['price'] + ' ; ' + str(i['vote_percent'])
+                article.image = i['img']
+                article.url = i['url']
+                reply.add_article(article)
             elif msg.content in clist:
                 reply = ArticlesReply()
                 article = ObjectDict()
