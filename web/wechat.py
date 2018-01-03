@@ -44,9 +44,9 @@ def wechat(request):
                 reply = create_reply(classification, msg)
             elif msg.content == "排行":
                 reply = ArticlesReply(message=msg)
-
+                article = ObjectDict()
                 for i in DB.db_all_order_by('vote_percent', 'zhi_count')[0:8]:
-                    article = ObjectDict()
+
                     article.title = i['title']
                     article.description = i['price'] + ' ; ' + str(i['vote_percent'])+'%'
                     article.image = i['img']
@@ -56,7 +56,7 @@ def wechat(request):
             elif msg.content in clist:
                 reply = ArticlesReply(message=msg)
                 article = ObjectDict()
-                for i in DB.db_all_order_by('vote_percent', 'zhi_count', scroll='n', ctxt=msg.content)[0:8]:
+                for i in DB.db_all_order_by('vote_percent', 'zhi_count',fav=0,com=0,zhi=0,percent=0, scroll='n', ctxt=msg.content)[0:8]:
                     article.title = i['title']
                     article.description = i['price'] + ' ; ' + str(i['vote_percent'])+'%'
                     article.image = i['img']
