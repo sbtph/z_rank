@@ -2,8 +2,9 @@
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from wechatpy import parse_message, create_reply
-from wechatpy.utils import check_signature
-from wechatpy.exceptions import InvalidSignatureException, InvalidAppIdException
+from wechatpy.replies import ArticlesReply
+from wechatpy.utils import check_signature, ObjectDict
+from wechatpy.exceptions import InvalidSignatureException
 from . import dbprocess as DB
 from .wechat_events import events_reply
 
@@ -39,8 +40,18 @@ def wechat(request):
                 clist = []
                 for i in DB.db_class():
                     clist.append(i['classification'])
-                classification = "目前有这些分类哦：" + ",".join(clist)
+                classification = "目前有这些分类：" + ",".join(clist)
                 reply = create_reply(classification, msg)
+            elif msg.content == "排行":
+                reply  = ArticlesReply(msg)
+                article = ObjectDict()
+                for i in DB.db_all_order_by('vote_percent', 'zhi_count')[0:8]:
+                    article.title = i['title']
+                    article.description = i['price']+' ; '+i['percent']
+                    article.image = i['img']
+                    article.url = i['url']
+                    reply.add_article(article)
+            elif msg.content in DB.db_class().value :
             else:
                 reply = create_reply('回复“分类”可以查看分类哦', msg)
         elif msg.type == 'event':
