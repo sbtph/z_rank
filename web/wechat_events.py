@@ -15,5 +15,5 @@ def events_reply(msg):
 
 
 def Subscribe(msg):
-    reply = create_reply('欢迎关注zebreay的公众号，回复“排行”可以查看当前排行；回复“分类”可以查看当前分类；', msg)
+    reply = create_reply('欢迎关注zebreay的公众号，回复“排行”可以查看当前排行；回复“分类”可以查看全部分类；', msg)
     return reply
