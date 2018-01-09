@@ -30,6 +30,14 @@ def index(request):
                 context['scroll_times'] = str(scroll+1)
                 context['finish'] = True if scroll*page+page >= len(S.list) else False
                 return render(request, 'list_container.html', context)
+
+        elif 'search' in post.keys():
+            context['search'] = post['search']
+            S.list = DB.db_search('vote_percent', 'zhi_count', context['search'])
+            context['list'] = S.list[0:page]
+            context['scroll_times'] = '1'
+            return render(request, 'list_container.html', context)
+
         else:
             ctxt = []
             for i in range(0, len(post)):

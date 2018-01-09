@@ -27,15 +27,15 @@
         <a class="nav-link disabled" >更多内容（待开放）</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
   </div>
 </nav>
 
 <nav class="navbar sticky-top navbar-light" style="background-color: #e3f2fd;">
     <h5 class="navbar-brand">感兴趣的分类：</h5>
+    <div class="form-inline my-2 my-lg-0">
+      <input id="search-form" class="form-control mr-sm-2" placeholder="搜索物品" aria-label="Search">
+      <button id="search-button" class="btn btn-outline-success my-2 my-sm-0">搜索</button>
+    </div>
         <div class="container-fluid">
             <div><input class="classification" type="radio" value="全部" id="cf-all" checked="checked"/><label id="label-all" for="cf-all">全部</label></div>
             {% for item in classification %}

@@ -19,3 +19,12 @@ def db_all_order_by(column,colum2,fav=0,com=0,zhi=0,percent=0, **cf):
 def db_class():
     return list(Spider.objects.all().values('classification').exclude(classification=None).\
                 exclude(classification__contains="个人主页").exclude(outdated=True).distinct())
+
+def db_search(column,colum2,search):
+    searchlist = search.split()
+    search = '|'.join(searchlist)
+    searchstr = r'('+search+')'
+    #print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+searchstr)
+    data = Spider.objects.values().exclude(outdated=True).exclude(classification__isnull=True).\
+        filter(title__iregex=searchstr).order_by('-'+column, '-'+colum2)
+    return list(data)

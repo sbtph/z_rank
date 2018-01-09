@@ -47,6 +47,13 @@ $(document).ready(function(){
         //}
     });
 
+    $("#search-button").click(function() {
+        $.post("/", {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, 'search': $("#search-form").val()},
+            function (response) {
+                $(".more").remove();
+                $("#list-container").html(response);
+            });
+    });
     $(window).scroll(function() {
         if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
             if($("#finish").length > 0) {}
